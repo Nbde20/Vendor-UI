@@ -10,7 +10,7 @@ export default class List extends Component {
        // this.initData = Data
         this.state = {
             //data: this.initData,
-            resp='',
+            resp: '',
             data : [],
            selectedvalue:'Breakfast',
       isModalVisible: false,
@@ -98,9 +98,9 @@ export default class List extends Component {
         //     iitem.text, item.price
         // })
         var that = this;
-        fetch('https://limitless-crag-24152.herokuapp.com/Eatery/Dell%206%20Cafeteria/Breakfast',{
+        fetch(`https://limitless-crag-24152.herokuapp.com/Eatery/Dell%206%20Cafeteria/${props.listname}`,{
         method: 'DELETE',
-        body: JSON.stringify({"name": this.state.name})
+        body: JSON.stringify({"name": this.state.inputText})
         })
         // this.setState({ data: newData })
         .then(function (response) {
@@ -112,7 +112,7 @@ export default class List extends Component {
                             //  status: result.error,
                              resp: result,
                           });
-             Alert.alert("Item Added"+that.state.resp);
+             Alert.alert("Delete item"+that.state.resp);
              console.log(that.state.resp);
          }else{
           Alert.alert(result.error_msg);
@@ -191,7 +191,7 @@ export default class List extends Component {
                             style={[styles.touchableHighlight, {backgroundColor: 'green'}]} underlayColor={'#f1f1f1'}>
                             <Text style={styles.text}>Save</Text>
                         </TouchableHighlight>  
-                        <TouchableHighlight onPress={() => {this.handleEditItem(this.state.editeditem); this.setModalVisible(false); 
+                        <TouchableHighlight onPress={() => {this.setModalVisible(false); 
                         this.onClickListener()}} 
                             style={[styles.touchableHighlight, {backgroundColor: 'green'}]} underlayColor={'#f1f1f1'}>
                             <Text style={styles.text}>Delete</Text>

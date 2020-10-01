@@ -52,12 +52,12 @@ export default class LoginScreen extends Component {
           
           />
           </View>
-      <View style={styles.row}>
+      {/* <View style={styles.row}>
         <Text style={styles.label}>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Addmenu')}>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('RegisterScreen')}>
           <Text style={styles.link}>Sign up</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       </View>
     )
