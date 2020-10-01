@@ -6,9 +6,11 @@ import AddNewItem from './AddNewItem';
 export default class List extends Component {
     constructor(props) {
         super(props);
+        this.handleDeleteItem = this.handleDeleteItem.bind(this);
        // this.initData = Data
         this.state = {
             //data: this.initData,
+            resp='',
             data : [],
            selectedvalue:'Breakfast',
       isModalVisible: false,
@@ -38,6 +40,7 @@ export default class List extends Component {
     //     componentDidMount() {
     //       this.GetMenuItems()
     //       }
+    
 
           static async getDerivedStateFromProps(props, state){
             // componentWillReceiveProps(props) {
@@ -90,12 +93,51 @@ export default class List extends Component {
         })
         this.setState({ data: newData })
     }
-    // handleDeleteItem = (deleteitem) => {
-    //     const newData = this.state.data.splice(item =>{
-    //         iitem.text, item.price
-    //     })
-    //     this.setState({ data: newData })
-    // }
+    handleDeleteItem = () => {
+        // const newData = this.state.data.splice(item =>{
+        //     iitem.text, item.price
+        // })
+        var that = this;
+        fetch('https://limitless-crag-24152.herokuapp.com/Eatery/Dell%206%20Cafeteria/Breakfast',{
+        method: 'DELETE',
+        body: JSON.stringify({"name": this.state.name})
+        })
+        // this.setState({ data: newData })
+        .then(function (response) {
+            return response.json();
+          }).then(function (result) { 
+            // console.log(result);
+            if(!result.error){
+             that.setState({ 
+                            //  status: result.error,
+                             resp: result,
+                          });
+             Alert.alert("Item Added"+that.state.resp);
+             console.log(that.state.resp);
+         }else{
+          Alert.alert(result.error_msg);
+          console.log(result);
+    }
+  }).catch(function (error) {
+    console.log("-------- error ------- "+error);
+    alert("result:"+error)
+  });
+    }
+    onClickListener = () => {
+        if(this.state.description || this.state.description != " "){
+         if(this.state.name){
+          if(this.state.price){
+              this.handleDeleteItem();
+           }else{
+          Alert.alert("Please Enter Description");
+         }
+         }else{
+        Alert.alert("Please Enter Name of the Item");
+        }
+      }else{
+    Alert.alert("Please enter Price of Item");
+    }
+    }
 
 
     renderItem = ({item}) => (
@@ -149,7 +191,8 @@ export default class List extends Component {
                             style={[styles.touchableHighlight, {backgroundColor: 'green'}]} underlayColor={'#f1f1f1'}>
                             <Text style={styles.text}>Save</Text>
                         </TouchableHighlight>  
-                        <TouchableHighlight onPress={() => {this.handleEditItem(this.state.editeditem); this.setModalVisible(false)}} 
+                        <TouchableHighlight onPress={() => {this.handleEditItem(this.state.editeditem); this.setModalVisible(false); 
+                        this.onClickListener()}} 
                             style={[styles.touchableHighlight, {backgroundColor: 'green'}]} underlayColor={'#f1f1f1'}>
                             <Text style={styles.text}>Delete</Text>
                         </TouchableHighlight> 

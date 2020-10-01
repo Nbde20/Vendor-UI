@@ -21,7 +21,7 @@ export default class Addmenu extends Component {
                  wholeResult: '',
                 };
    }
-   onClickListener = (viewId) => {
+   onClickListener = () => {
     if(this.state.description || this.state.description != " "){
      if(this.state.name){
       if(this.state.price){
@@ -48,7 +48,7 @@ AddMenuItem(){
         // .then(response => response.json())  // promise
         // .then(json => dispatch(receiveAppos(json)))
         .then(function (response) {
-          return response.text();
+          return response.json();
         }).then(function (result) { 
           // console.log(result);
           if(!result.error){
@@ -56,7 +56,7 @@ AddMenuItem(){
                           //  status: result.error,
                            wholeResult: result,
                         });
-           Alert.alert(+that.state.wholeResult);
+           Alert.alert("Item Added"+that.state.wholeResult);
            console.log(that.state.wholeResult);
        }else{
         Alert.alert(result.error_msg);
@@ -99,7 +99,7 @@ AddMenuItem(){
           title="AddItem"
           color="green"
          // onPress={() =>{ this.onClickListener('sign_up'); this.props.navigation.navigate('Home')}}
-          onPress={() => this.onClickListener('sign_up')}
+          onPress={() => this.onClickListener()}
           
           />
           </View>

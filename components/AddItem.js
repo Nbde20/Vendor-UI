@@ -23,7 +23,7 @@ export default function AddItem({ submitHandler }) {
         onChangeText={changeHandler} 
         value={price} 
       />
-      <Button color='green' onPress={() => submitHandler(text)} title='Add New Item' />
+      <Button color='green' onPress={() => submitHandler(text)} title='Add New Item'/>
     </View>
   );
 }
